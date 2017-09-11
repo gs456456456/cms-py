@@ -8,7 +8,7 @@ class ReportForm(forms.Form):
     # report_machine_choice_list = []
     # for x in report_machine_choice_orin:
     #     report_machine_choice_list.append(x)
-    报表类型 = forms.ChoiceField(choices=report_choices, widget=forms.RadioSelect())
+    type = forms.ChoiceField(choices=report_choices, widget=forms.RadioSelect())
     # report_date = forms.DateField(widget=forms.SelectDateWidget(), label="Select Date")
-    日期 = forms.DateField(widget=forms.DateInput(attrs={'class': 'vDateField'}))
+    date = forms.DateField(widget=forms.DateInput(attrs={'class': 'vDateField'}))
     # report_machine = forms.ChoiceField(choices=report_machine_choice_list,widget=forms.Select())

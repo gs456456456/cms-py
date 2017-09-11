@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新德宝纸杯机报表系统</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/reports/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/reports/css/bootstrap.min.css">
+    <script src="../../static/reports/js/jquery-3.2.1.min.js"></script>
+    <script src="../../static/reports/js/jquery.dataTables.min.js"></script>
+    <script src="../../static/reports/js/bootstrap.min.js"></script>
+    <script src="../../static/reports/js/datatables.min.js"></script>
+    <script type="text/javascript" language="javascript"  src="../../static/reports/js/dataTables.bootstrap.min.js"></script>
+    <script src="../../static/reports/js/laydate/laydate.js"></script>
+    <script src="../../static/reports/js/spin.min.js"></script>
+    <style>
+        body{
+            z-index: 10;
+        }
+        #mytable{
+            margin-top: 1.5%;
+            margin-left: 1.5%;
+            margin-right: 1.5%;
+        }
+        #memberselect{
+            margin-top: 0.5%;
+            margin-bottom: 0.5%;
+        }
+        #filtercond{
+            margin-top: 1.5%;
+            margin-left: 1.5%;
+        }
+        #loading{
+            position: absolute;
+            left:50%;
+            top:40%;
+            z-index:100
+        }
+        #backing{
+            background-color: grey;
+            z-index: 20;
+            width: 20%;
+            height: 20%;
+            position:absolute;
+            top:33%;
+	        left:40%;
+            border-radius:1%;
+            opacity: 0.5;
+        }
+        #loadingfont{
+            font-size: 200%;
+            left:47.25%;
+            top:44%;
+            position: absolute;
+            z-index:100
+            /*font-family: "Microsoft YaHei";*/
+
+        }
+        .filterspace{
+            margin-left: 3%;
+        }
+        .line{
+            display: inline-block;
+        }
+        .status{
+            margin-left: 1%;
+        }
+        .disappear{
+            display: none;
+        }
+    </style>
+    </head>
+<body id="change">
+<div id="filtercond">
+    <div>筛选条件</div>
+<div id='memberselect' class="dropdown line">
+    <button type="button" class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">员工编号
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" id='membernumber' aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">76001</a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">76002</a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">76003</a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">76004</a>
+        </li>
+                <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">76005</a>
+        </li>
+                <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">76006</a>
+        </li>
+                <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">76007</a>
+        </li>
+                <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">76008</a>
+        </li>
+                <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">76009</a>
+        </li>
+                <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">76010</a>
+        </li>
+    </ul>
+</div>
+
+<div class="line status" id="i1">未设置</div>
+
+
+ <div class="dropdown line filterspace">
+    <button type="button" class="btn btn-default dropdown-toggle"  data-toggle="dropdown">规格
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" id="paperSpec" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">7</a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">8</a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">9</a>
+        </li>
+    </ul>
+</div>
+
+
+    <div class="line status" id="i2">未设置</div>
+
+
+     <div class="dropdown line filterspace">
+    <button type="button" class="btn  btn-default dropdown-toggle"  data-toggle="dropdown">克重
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" id="paperWeight" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">0.2</a>
+        </li>
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">0.4</a>
+        </li>
+    </ul>
+</div>
+
+    <div class="line status" id="i3">未设置</div>
+
+
+     <div class="dropdown line filterspace">
+    <button type="button" class="btn btn-default dropdown-toggle"  data-toggle="dropdown">设备编号
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" id="devicenumber" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">98001</a>
+        </li>
+    </ul>
+</div>
+
+    <div class="line status" id="i4">未设置</div>
+
+
+     <div class="dropdown line filterspace">
+    <button type="button" class="btn btn-default dropdown-toggle"  data-toggle="dropdown">订单编号
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" id="pagenumber" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#">20170901001</a>
+        </li>
+    </ul>
+</div>
+
+    <div class="line status" id="i5">未设置</div>
+              <div id="time" class="line">
+                  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp时间&nbsp&nbsp&nbsp<input type="text" id="test1">  <div class="line" id="middle">~</div>   <input type="text" id="test2">
+                  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            </div>
+                  <button id="submit"  class="btn btn-success btn-sm">提交</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+              <button id="reset" class="btn btn-success btn-warning btn-sm">重置</button>             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <button id="output" class="btn btn-primary btn-sm">导出为excel格式</button>
+    </div>
+
+
+<div id="mytable">
+    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th id="member">员工编号</th>
+                <th>换班时间</th>
+                <th>机器运行时间</th>
+                <th>纸片数量</th>
+                <th>纸杯数量</th>
+                <th>损耗率</th>
+                <th>规格</th>
+                <th>克重</th>
+                <th>报警数</th>
+                <th>设备编号</th>
+                <th>订单编号</th>
+            </tr>
+        </thead>
+          {% load mytags %}
+        <tbody>
+                {% for item in list_total %}
+            <tr>
+                <td>{{item.0}}</td>
+                <td>{{item.1|change_date}}</td>
+                <td>{{item.2}}秒</td>
+                <td>{{item.3}}</td>
+                <td>{{item.4}}</td>
+                <td>{{item.5}}</td>
+                <td>{{item.6}}</td>
+                <td>{{item.7}}</td>
+                <td>{{item.8}}</td>
+                <td>{{item.9}}</td>
+                <td>{{item.10}}</td>
+            </tr>
+        {% endfor %}
+
+
+
+        </tbody>
+    </table>
+</div>
+<div id="backing" class="disappear">
+    </div>
+<div id="loading" class="disappear">
+</div>
+    <div id="loadingfont" class="disappear">loading...</div>
+
+</body>
+
+<script>
+    var starttime
+    var endtime
+    var membernumber
+    var paperSpec
+    var paperWeight
+    var devicenumber
+    var pagenumber
+    //加载器
+    var opts = {
+          lines: 13, // The number of lines to draw
+          length: 7, // The length of each line
+          width: 4, // The line thickness
+          radius: 10, // The radius of the inner circle
+          corners: 1, // Corner roundness (0..1)
+          rotate: 0, // The rotation offset
+          color: '#000', // #rgb or #rrggbb
+          speed: 1, // Rounds per second
+          trail: 60, // Afterglow percentage
+          shadow: false, // Whether to render a shadow
+          hwaccel: false, // Whether to use hardware acceleration
+          className: 'spinner', // The CSS class to assign to the spinner
+          zIndex: 2e9, // The z-index (defaults to 2000000000)
+          top: 'auto', // Top position relative to parent in px
+          left: 'auto' // Left position relative to parent in px
+        };
+        var target = document.getElementById('loading');
+        var spinner = new Spinner(opts).spin(target);
+
+
+   laydate.render({
+        elem: '#test1',
+        type: 'datetime',//指定元素,
+        ready: function(date){},
+        done: function(value, date, endDate) {
+            starttime = JSON.stringify(date)
+            console.log(starttime)
+        }
+        })
+
+    laydate.render({
+        elem: '#test2',
+        type: 'datetime',
+        done: function(value, date, endDate) {
+            endtime = JSON.stringify(date)
+        }//指定元素
+        });
+
+    $(document).ready(function() {
+    $('#example').DataTable();
+        $('#membernumber').children('li').on('click', function() {
+            membernumber = $(this).text()
+            $('#i1').html(membernumber)
+                       })
+                $('#paperSpec').children('li').on('click', function() {
+            paperSpec = $(this).text()
+            $('#i2').html(paperSpec)
+                       })
+                $('#paperWeight').children('li').on('click', function() {
+            paperWeight = $(this).text()
+            $('#i3').html(paperWeight)
+                       })
+                $('#devicenumber').children('li').on('click', function() {
+            devicenumber = $(this).text()
+            $('#i4').html(devicenumber)
+                       })
+                $('#pagenumber').children('li').on('click', function() {
+            pagenumber = $(this).text()
+            $('#i5').html(pagenumber)
+                       })
+        $('#reset').click(function(){
+            window.location.href ='/table/'
+        })
+        $('#output').click(function(){
+             window.location.href ='/test/'
+//            $.post('/table/', {
+//                f:1
+//             }, function (data) {
+//                 $('#change').html(data)
+//                 $('#backing').addClass('disappear');
+//                 $('#loading').addClass('disappear');
+//                 $('#loadingfont').addClass('disappear');
+//                 console.log('success')
+//
+//             })
+        })
+         $('#submit').click(function() {
+             if(starttime&&endtime || membernumber || pagenumber || paperSpec || paperWeight || devicenumber)
+             {$('#backing').removeClass('disappear');
+             $('#loading').removeClass('disappear');
+             $('#loadingfont').removeClass('disappear');}
+             $.get('/table/', {
+                 st: starttime,
+                 et: endtime,
+                 a: membernumber,
+                 b: paperSpec,
+                 c: paperWeight,
+                 d: devicenumber,
+                 e: pagenumber,
+             }, function (data) {
+                 $('#change').html(data)
+                 $('#backing').addClass('disappear');
+                 $('#loading').addClass('disappear');
+                 $('#loadingfont').addClass('disappear');
+                 console.log('success')
+
+             })
+         })
+
+} );
+</script>
+</html>
