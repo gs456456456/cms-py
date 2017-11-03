@@ -28,3 +28,5 @@ appkey=ZMPZ6hl60UW43exaSvoPTg==
 appsecret=84Y17hCX1UyvRysIYML99w==
 url=http://openapi.energymost.com/API/Energy.svc/GetEnergyUsageData
 
+安装django python3  manage.py runserver
+
